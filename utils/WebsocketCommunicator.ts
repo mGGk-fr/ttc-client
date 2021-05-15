@@ -4,6 +4,7 @@ export enum WebSocketEvents {
   GET_PLAYER_LIST = 'getPlayerList',
   NEW_PLAYER = 'newPlayer',
   PLAYER_LEFT = 'playerLeft',
+  ASK_DUEL = 'askDuel',
 }
 
 class WebsocketCommunicator {
