@@ -1,9 +1,11 @@
 <template>
   <VList>
-    <VListItem> Online players : {{ filteredPlayerList.length }} </VListItem>
-    <VListItem v-for="player in filteredPlayerList" :key="player.uuid">{{
-      player.name
-    }}</VListItem>
+    <VSubheader>Online players : {{ filteredPlayerList.length }}</VSubheader>
+    <VListItem v-for="player in filteredPlayerList" :key="player.uuid">
+      <VListItemContent>
+        <VListItemTitle v-text="player.name"></VListItemTitle>
+      </VListItemContent>
+    </VListItem>
   </VList>
 </template>
 
