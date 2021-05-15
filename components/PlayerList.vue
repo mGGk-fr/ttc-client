@@ -1,6 +1,9 @@
 <template>
   <VList>
-    <VListItem>Me</VListItem>
+    <VListItem> Online players : {{ filteredPlayerList.length }} </VListItem>
+    <VListItem v-for="player in filteredPlayerList" :key="player.uuid">{{
+      player.name
+    }}</VListItem>
   </VList>
 </template>
 
@@ -12,6 +15,14 @@ import WebsocketCommunicator, {
 
 @Component
 export default class PlayerList extends Vue {
+  playerList = [];
+
+  get filteredPlayerList() {
+    return this.playerList.filter(
+      (player) => player.uuid !== this.$store.state.uuid
+    );
+  }
+
   mounted() {
     this.registerPlayerEvents();
     this.loadPlayerList();
@@ -25,9 +36,17 @@ export default class PlayerList extends Vue {
     WebsocketCommunicator.listenTo(
       WebSocketEvents.GET_PLAYER_LIST,
       (message) => {
-        console.log(message);
+        this.playerList = message.list;
       }
     );
+    WebsocketCommunicator.listenTo(WebSocketEvents.NEW_PLAYER, (message) => {
+      this.playerList.unshift(message);
+    });
+    WebsocketCommunicator.listenTo(WebSocketEvents.PLAYER_LEFT, (message) => {
+      this.playerList = this.playerList.filter(
+        (player) => player.uuid !== message.uuid
+      );
+    });
   }
 }
 </script>

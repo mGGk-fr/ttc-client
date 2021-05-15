@@ -39,7 +39,7 @@ export default class ChoosePseudoDialog extends Vue {
     this.showDialog = !this.$store.getters.hasSetPseudo;
     WebsocketCommunicator.listenTo(
       WebSocketEvents.PLAYER_REGISTRED,
-      (message) => {
+      (message: any) => {
         this.$store.commit('setUserPseudo', message.pseudo);
         this.$store.commit('setUserUUID', message.uuid);
         this.showDialog = false;
@@ -49,7 +49,6 @@ export default class ChoosePseudoDialog extends Vue {
 
   setPseudonym() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
-      WebsocketCommunicator.listenTo();
       WebsocketCommunicator.sendEvent(WebSocketEvents.REGISTER_PLAYER, {
         pseudo: this.userPseudonym,
       });

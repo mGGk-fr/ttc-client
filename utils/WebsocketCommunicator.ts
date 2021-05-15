@@ -1,5 +1,3 @@
-import { state } from '~/store';
-
 export enum WebSocketEvents {
   REGISTER_PLAYER = 'registerPlayer',
   PLAYER_REGISTRED = 'playerRegistred',
@@ -25,7 +23,6 @@ class WebsocketCommunicator {
   }
 
   sendEvent(eventName: string, data: any) {
-    console.log(state);
     this.socket.send(JSON.stringify({ type: eventName, data }));
   }
 
