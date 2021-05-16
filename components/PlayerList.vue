@@ -25,7 +25,7 @@
         </VCard>
       </VDialog>
       <VDialog v-model="recivingDuel" persistent width="300">
-        <VCard color="primary" dark>
+        <VCard v-if="recivingDuel" color="primary" dark>
           <VCardText> {{ invitingPlayer.name }} invited you to play </VCardText>
           <VCardActions>
             <VSpacer />
@@ -38,7 +38,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
 import WebsocketCommunicator, {
   WebSocketEvents,
